@@ -10,24 +10,24 @@ namespace strings
     {
         static void Main(string[] args)
         {
-            char[] s1 = new char[] { 'A', 'B', 'F', 'H', 'E', 'D' };
-            StringBuilder s2 = new StringBuilder();
+            char[] letArr = new char[] { 'A', 'B', 'F', 'H', 'E', 'D' };
+            StringBuilder letStr = new StringBuilder();
 
             int i = 1;
-            foreach (char it in s1)
+            foreach (char it in letArr)
             {
-                s2.Append(it);
-                Console.WriteLine("s2 ({0}): {1}", i++, s2);
+                letStr.Append(it);
+                Console.WriteLine("s2 ({0}): {1}", i++, letStr);
             }
 
-            s2.Replace('F', 'C');
-            Console.WriteLine("\ns2 after replacement: {0}", s2);
+            letStr.Replace('F', 'C');
+            Console.WriteLine("\ns2 after replacement: {0}", letStr);
 
-            s2.Remove(3, 2);
-            Console.WriteLine("s2 after removing: {0}", s2);
+            letStr.Remove(3, 2);
+            Console.WriteLine("s2 after removing: {0}", letStr);
 
-            s2.Insert(4, "EFG");
-            Console.WriteLine("s2 after insertion: {0}", s2);
+            letStr.Insert(4, "EFG");
+            Console.WriteLine("s2 after insertion: {0}", letStr);
 
             Console.ReadKey();
         }

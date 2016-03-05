@@ -4,8 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-// Обработчики исключений в обоих случаях получились практически одинаковыми.
-// Можно ли как-нибудь этот момент учесть и сократить код?
 
 namespace arrays
 {
@@ -15,29 +13,9 @@ namespace arrays
         {
             int n, m;
 
-            // Или это уже чересчур?
-            while (true)
-            {
-                try
-                {
-
-                    Console.Write("Enter number of rows: ");
-                    n = System.Convert.ToInt32(Console.ReadLine());
-
-                    Console.Write("Enter number of columns: ");
-                    m = System.Convert.ToInt32(Console.ReadLine());
-
-                    break;
-                }
-
-                catch (FormatException)
-                {
-                    Console.WriteLine("\nWrong input. Try again");
-                    Console.ReadKey();
-                    Console.Clear();
-                    continue;
-                }
-            }
+            n = Input("Enter number of rows: ");
+            m = Input("Enter number of columns: ");
+            
 
 
             int[,] dec = new int[n, m];
@@ -47,36 +25,19 @@ namespace arrays
             for (int i = 0; i < dec.GetLength(0); i++)
                 for (int j = 0; j < dec.GetLength(1); j++)
                 {
-                    try
-                    {
-                        Console.Write("Element [{0},{1}]: ", i, j);
-                        dec[i, j] = System.Convert.ToInt32(Console.ReadLine());
-                    }
-                    catch (FormatException)
-                    {
-                        Console.WriteLine("\nWrong input. Try again\n");
-
-                        if (j > 0) j--;
-                        else
-                        {
-                            i--;
-                            j = m - 1;
-                        }
-
-
-                        continue;
-                    }
+                    dec[i, j] = Input("Element [" + i + "," + j + "]: ");
+                    
                 }
 
             Console.Clear();
-            print(dec);
+            Print(dec);
 
-            Console.WriteLine("Min is {0}", searchMin(dec));
-            Console.WriteLine("Max is {0}", searchMax(dec));
+            Console.WriteLine("Min is {0}", SearchMin(dec));
+            Console.WriteLine("Max is {0}", SearchMax(dec));
 
             Console.WriteLine("\n\nAfter Max to Min function");
             MaxToMin(dec);
-            print(dec);
+            Print(dec);
 
             Console.ReadKey();
 
@@ -85,7 +46,7 @@ namespace arrays
 
 
 
-        static int searchMin(int[,] dec)
+        static int SearchMin(int[,] dec)
         {
             int min = dec[0, 0];
 
@@ -95,7 +56,7 @@ namespace arrays
 
             return min;
         }
-        static int searchMax(int[,] dec)
+        static int SearchMax(int[,] dec)
         {
             int max = dec[0, 0];
 
@@ -107,15 +68,15 @@ namespace arrays
         }
         static void MaxToMin(int[,] dec)
         {
-            int min = searchMin(dec);
-            int max = searchMax(dec);
+            int min = SearchMin(dec);
+            int max = SearchMax(dec);
             for (int i = 0; i < dec.GetLength(0); i++)
                 for (int j = 0; j < dec.GetLength(1); j++)
                     if (dec[i, j] == max)
                         dec[i, j] = min;
         }
 
-        static void print(int[,] dec)
+        static void Print(int[,] dec)
         {
             Console.Write("\n");
             for (int i = 0; i < dec.GetLength(0); i++)
@@ -125,6 +86,25 @@ namespace arrays
                 Console.Write("\n\n");
             }
             Console.Write("\n");
+        }
+
+        static int Input(string text){
+            int value;
+
+            while (true)
+            {
+                Console.Write(text);
+                try
+                {
+                    value = int.Parse(Console.ReadLine());
+                    return value;
+                }
+                catch (FormatException)
+                {
+                    Console.WriteLine("\nWrong input. Try again\n");
+                }
+
+            }
         }
     }
 }
